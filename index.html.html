@@ -1,0 +1,809 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BUUGSSS — Online Marketing Manager</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --forest-void: #060e06;
+    --forest-deep: #0c1a0c;
+    --forest-mid: #142614;
+    --forest-bark: #1e361e;
+    --forest-moss: #2d502d;
+    --forest-fern: #3d6b3d;
+    --forest-leaf: #5a9c5a;
+    --forest-sage: #7ab87a;
+    --forest-mist: #a8cfa8;
+    --forest-fog: #c8e0c8;
+    --forest-dew: #e8f4e8;
+    --amber-glow: #c8a84b;
+    --amber-soft: #d4b86a;
+    --cream: #f0ead8;
+    --text-primary: #daeada;
+    --text-secondary: #8fb88f;
+    --text-muted: #507050;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background-color: var(--forest-void);
+    color: var(--text-primary);
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 300;
+    line-height: 1.7;
+    overflow-x: hidden;
+  }
+
+  /* ── NOISE TEXTURE OVERLAY ── */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+    opacity: 0.35;
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  /* ── DECORATIVE LEAVES ── */
+  .leaf-bg {
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: 0;
+    overflow: hidden;
+  }
+  .leaf-bg svg {
+    position: absolute;
+    opacity: 0.04;
+  }
+  .leaf-bg svg.l1 { top: -80px; right: -60px; width: 420px; transform: rotate(15deg); }
+  .leaf-bg svg.l2 { bottom: 10%; left: -100px; width: 380px; transform: rotate(-20deg); }
+  .leaf-bg svg.l3 { top: 40%; right: -80px; width: 280px; transform: rotate(30deg); }
+
+  /* ── LAYOUT ── */
+  .wrap { max-width: 900px; margin: 0 auto; padding: 0 2rem; position: relative; z-index: 1; }
+
+  /* ── NAV ── */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    padding: 1.25rem 2rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: linear-gradient(to bottom, rgba(6,14,6,0.95) 0%, rgba(6,14,6,0) 100%);
+  }
+  .nav-logo {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.3rem;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    color: var(--forest-sage);
+    text-decoration: none;
+  }
+  .nav-links { display: flex; gap: 2.5rem; list-style: none; }
+  .nav-links a {
+    font-size: 0.8rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--text-secondary);
+    text-decoration: none;
+    transition: color 0.3s;
+  }
+  .nav-links a:hover { color: var(--forest-mist); }
+
+  /* ── HERO ── */
+  #hero {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    padding: 8rem 2rem 6rem;
+    position: relative;
+  }
+  .hero-inner { max-width: 900px; margin: 0 auto; width: 100%; }
+
+  .hero-eyebrow {
+    font-size: 0.75rem;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--amber-glow);
+    margin-bottom: 1.5rem;
+    opacity: 0;
+    animation: fadeUp 0.8s ease forwards 0.2s;
+  }
+
+  .hero-name {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(5rem, 15vw, 11rem);
+    font-weight: 300;
+    line-height: 0.9;
+    letter-spacing: -0.02em;
+    color: var(--forest-dew);
+    opacity: 0;
+    animation: fadeUp 0.9s ease forwards 0.4s;
+  }
+  .hero-name em {
+    font-style: italic;
+    color: var(--forest-sage);
+    display: block;
+    font-size: 0.45em;
+    letter-spacing: 0.05em;
+    margin-top: 0.4em;
+  }
+
+  .hero-divider {
+    width: 60px;
+    height: 1px;
+    background: var(--amber-glow);
+    margin: 2.5rem 0;
+    opacity: 0;
+    animation: fadeUp 0.8s ease forwards 0.6s;
+  }
+
+  .hero-tagline {
+    font-size: clamp(1rem, 2vw, 1.25rem);
+    color: var(--text-secondary);
+    max-width: 480px;
+    line-height: 1.8;
+    opacity: 0;
+    animation: fadeUp 0.8s ease forwards 0.8s;
+  }
+  .hero-tagline strong { color: var(--forest-mist); font-weight: 400; }
+
+  .hero-cta {
+    margin-top: 3rem;
+    display: flex;
+    gap: 1.5rem;
+    align-items: center;
+    opacity: 0;
+    animation: fadeUp 0.8s ease forwards 1s;
+  }
+  .btn-primary {
+    display: inline-block;
+    padding: 0.85rem 2.2rem;
+    background: var(--forest-fern);
+    color: var(--forest-dew);
+    text-decoration: none;
+    font-size: 0.85rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    border: 1px solid var(--forest-leaf);
+    transition: all 0.3s;
+  }
+  .btn-primary:hover {
+    background: var(--forest-leaf);
+    color: var(--forest-void);
+  }
+  .btn-ghost {
+    display: inline-block;
+    font-size: 0.85rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--text-secondary);
+    text-decoration: none;
+    transition: color 0.3s;
+  }
+  .btn-ghost:hover { color: var(--forest-mist); }
+
+  /* ── SCROLL LINE ── */
+  .scroll-indicator {
+    position: absolute;
+    bottom: 3rem;
+    left: 2rem;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    opacity: 0;
+    animation: fadeIn 1s ease forwards 1.4s;
+  }
+  .scroll-indicator span {
+    font-size: 0.7rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+  }
+  .scroll-line {
+    width: 50px;
+    height: 1px;
+    background: var(--forest-moss);
+    position: relative;
+    overflow: hidden;
+  }
+  .scroll-line::after {
+    content: '';
+    position: absolute;
+    left: -100%;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background: var(--forest-leaf);
+    animation: slideLine 2s ease infinite 1.4s;
+  }
+
+  /* ── SECTION BASE ── */
+  section {
+    padding: 7rem 0;
+    position: relative;
+    z-index: 1;
+  }
+
+  .section-label {
+    font-size: 0.7rem;
+    letter-spacing: 0.35em;
+    text-transform: uppercase;
+    color: var(--amber-glow);
+    margin-bottom: 1rem;
+  }
+  .section-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(2.5rem, 5vw, 4rem);
+    font-weight: 300;
+    line-height: 1.1;
+    color: var(--forest-dew);
+    margin-bottom: 3rem;
+  }
+  .section-title em { font-style: italic; color: var(--forest-sage); }
+
+  /* ── ABOUT ── */
+  #about { border-top: 1px solid var(--forest-bark); }
+
+  .about-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 5rem;
+    align-items: start;
+  }
+  .about-text p {
+    color: var(--text-secondary);
+    margin-bottom: 1.4rem;
+    font-size: 1rem;
+    line-height: 1.9;
+  }
+  .about-text p strong { color: var(--forest-mist); font-weight: 400; }
+
+  .about-stats {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    padding-top: 0.5rem;
+  }
+  .stat-item {
+    padding: 1.5rem;
+    border: 1px solid var(--forest-bark);
+    border-left: 3px solid var(--forest-fern);
+    background: rgba(20, 38, 20, 0.4);
+    transition: border-color 0.3s, background 0.3s;
+  }
+  .stat-item:hover {
+    border-left-color: var(--forest-leaf);
+    background: rgba(30, 54, 30, 0.5);
+  }
+  .stat-number {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 2.8rem;
+    font-weight: 300;
+    color: var(--forest-sage);
+    line-height: 1;
+  }
+  .stat-label {
+    font-size: 0.78rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    margin-top: 0.4rem;
+  }
+
+  /* ── PROJECTS ── */
+  #projects { border-top: 1px solid var(--forest-bark); }
+
+  .projects-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.5px;
+    background: var(--forest-bark);
+  }
+  .project-card {
+    background: var(--forest-deep);
+    padding: 2.5rem;
+    position: relative;
+    overflow: hidden;
+    transition: background 0.3s;
+  }
+  .project-card:hover { background: var(--forest-mid); }
+  .project-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%;
+    height: 3px;
+    background: var(--forest-fern);
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.4s ease;
+  }
+  .project-card:hover::before { transform: scaleX(1); }
+
+  .project-tag {
+    display: inline-block;
+    font-size: 0.65rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--amber-glow);
+    border: 1px solid rgba(200, 168, 75, 0.3);
+    padding: 0.25rem 0.6rem;
+    margin-bottom: 1.2rem;
+  }
+  .project-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.8rem;
+    font-weight: 400;
+    color: var(--forest-dew);
+    margin-bottom: 1rem;
+    line-height: 1.2;
+  }
+  .project-desc {
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+    line-height: 1.8;
+    margin-bottom: 1.5rem;
+  }
+  .project-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-top: auto;
+  }
+  .pill {
+    font-size: 0.7rem;
+    letter-spacing: 0.05em;
+    color: var(--text-muted);
+    background: var(--forest-bark);
+    padding: 0.2rem 0.7rem;
+    border-radius: 999px;
+  }
+
+  /* ── CONTACT ── */
+  #contact {
+    border-top: 1px solid var(--forest-bark);
+    text-align: center;
+  }
+  .contact-inner { max-width: 600px; margin: 0 auto; }
+  .contact-sub {
+    color: var(--text-secondary);
+    font-size: 1rem;
+    line-height: 1.8;
+    margin-bottom: 3rem;
+  }
+
+  .contact-options {
+    display: flex;
+    flex-direction: column;
+    gap: 1px;
+    background: var(--forest-bark);
+    margin-bottom: 3rem;
+  }
+  .contact-row {
+    display: flex;
+    align-items: center;
+    background: var(--forest-deep);
+    padding: 1.4rem 2rem;
+    gap: 1.5rem;
+    text-decoration: none;
+    transition: background 0.3s;
+    text-align: left;
+  }
+  .contact-row:hover { background: var(--forest-mid); }
+  .contact-icon {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: var(--forest-bark);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+  .contact-icon svg { width: 18px; height: 18px; fill: none; stroke: var(--forest-sage); stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
+  .contact-platform {
+    font-size: 0.7rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+  }
+  .contact-handle {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.3rem;
+    color: var(--forest-mist);
+  }
+  .contact-arrow {
+    margin-left: auto;
+    color: var(--forest-fern);
+    font-size: 1.2rem;
+  }
+
+  /* ── FOOTER ── */
+  footer {
+    border-top: 1px solid var(--forest-bark);
+    padding: 2.5rem 2rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: relative;
+    z-index: 1;
+  }
+  .footer-name {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 0.9rem;
+    color: var(--text-muted);
+    letter-spacing: 0.08em;
+  }
+  .footer-copy {
+    font-size: 0.75rem;
+    color: var(--text-muted);
+    letter-spacing: 0.05em;
+  }
+
+  /* ── ANIMATIONS ── */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(24px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes fadeIn {
+    from { opacity: 0; }
+    to   { opacity: 1; }
+  }
+  @keyframes slideLine {
+    0%   { left: -100%; }
+    50%  { left: 0%; }
+    100% { left: 100%; }
+  }
+
+  .reveal {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity 0.7s ease, transform 0.7s ease;
+  }
+  .reveal.visible {
+    opacity: 1;
+    transform: none;
+  }
+
+  /* ── LINKS ── */
+  .links-list { display: flex; flex-direction: column; gap: 1px; background: var(--forest-bark); }
+  .link-row {
+    display: flex;
+    align-items: center;
+    gap: 1.2rem;
+    background: var(--forest-deep);
+    padding: 1.2rem 1.5rem;
+    text-decoration: none;
+    transition: background 0.3s;
+    color: inherit;
+  }
+  .link-row:hover { background: var(--forest-mid); }
+  .link-icon {
+    width: 36px; height: 36px;
+    border-radius: 50%;
+    background: var(--forest-bark);
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0;
+    color: var(--forest-sage);
+  }
+  .link-icon svg { width: 16px; height: 16px; }
+  .link-text { flex: 1; }
+  .link-title { font-size: 0.9rem; color: var(--forest-mist); }
+  .link-url { font-size: 0.75rem; color: var(--text-muted); letter-spacing: 0.05em; margin-top: 0.1rem; }
+  .link-arrow { color: var(--forest-fern); font-size: 1rem; }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 680px) {
+    .about-grid { grid-template-columns: 1fr; gap: 3rem; }
+    .projects-grid { grid-template-columns: 1fr; }
+    nav { padding: 1rem 1.5rem; }
+    .nav-links { gap: 1.5rem; }
+    .wrap { padding: 0 1.5rem; }
+    footer { flex-direction: column; gap: 0.8rem; text-align: center; }
+  }
+</style>
+</head>
+<body>
+
+<!-- LEAF DECORATIONS -->
+<div class="leaf-bg" aria-hidden="true">
+  <svg class="l1" viewBox="0 0 400 600" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M200 580 C200 580 20 400 40 200 C60 0 180 20 200 20 C220 20 340 0 360 200 C380 400 200 580 200 580Z" fill="#4a8c4a"/>
+    <path d="M200 20 L200 580" stroke="#7ab87a" stroke-width="2"/>
+    <path d="M200 100 C150 120 100 150 60 200" stroke="#7ab87a" stroke-width="1" opacity="0.5"/>
+    <path d="M200 200 C150 220 90 240 50 280" stroke="#7ab87a" stroke-width="1" opacity="0.5"/>
+    <path d="M200 300 C150 320 100 350 70 390" stroke="#7ab87a" stroke-width="1" opacity="0.5"/>
+    <path d="M200 100 C250 120 300 150 340 200" stroke="#7ab87a" stroke-width="1" opacity="0.5"/>
+    <path d="M200 200 C250 220 310 240 350 280" stroke="#7ab87a" stroke-width="1" opacity="0.5"/>
+  </svg>
+  <svg class="l2" viewBox="0 0 400 600" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M200 580 C200 580 20 400 40 200 C60 0 180 20 200 20 C220 20 340 0 360 200 C380 400 200 580 200 580Z" fill="#3d6b3d"/>
+    <path d="M200 20 L200 580" stroke="#5a9c5a" stroke-width="2"/>
+  </svg>
+  <svg class="l3" viewBox="0 0 300 450" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M150 430 C150 430 15 300 30 150 C45 0 135 15 150 15 C165 15 255 0 270 150 C285 300 150 430 150 430Z" fill="#5a9c5a"/>
+    <path d="M150 15 L150 430" stroke="#7ab87a" stroke-width="1.5"/>
+  </svg>
+</div>
+
+<!-- NAV -->
+<nav>
+  <a href="#hero" class="nav-logo">Jago Carson</a>
+  <ul class="nav-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#projects">Work</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-inner">
+    <p class="hero-eyebrow">Online Marketing Manager &amp; Community Executive</p>
+    <h1 class="hero-name">
+      Jago Carson
+      <em>BUUGSSS</em>
+    </h1>
+    <div class="hero-divider"></div>
+    <p class="hero-tagline">
+      Marketing, management, and <strong>community leadership</strong> — growing teams, brands, and servers across the online world.
+    </p>
+    <div class="hero-cta">
+      <a href="#projects" class="btn-primary">View My Work</a>
+      <a href="#contact" class="btn-ghost">Get in Touch →</a>
+    </div>
+    <div class="scroll-indicator">
+      <span>Scroll</span>
+      <div class="scroll-line"></div>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="wrap">
+    <p class="section-label reveal">About Me</p>
+    <h2 class="section-title reveal">Growing communities <em>from the roots up</em></h2>
+    <div class="about-grid">
+      <div class="about-text reveal">
+        <p>
+          I'm <strong>Jago Carson</strong> — a self-employed online marketing manager and community executive who lives and breathes online communities. Most people know me by my online name, <strong>BUUGSSS</strong>.
+        </p>
+        <p>
+          I serve as <strong>Marketing Manager for Infinity Astro</strong> and <strong>Infinity Astro Services</strong>, driving growth and engagement across both brands. I'm also an <strong>Executive at POLAR SMP</strong>, where I contribute to high-level strategy and community direction.
+        </p>
+        <p>
+          My platform of choice is <strong>Discord</strong> — where I help communities grow their member base, build engagement strategies, and create spaces people genuinely want to be part of.
+        </p>
+        <p>
+          Whether you need a marketing manager, an executive-level strategist, or someone to grow your server from the ground up — I know what it takes.
+        </p>
+      </div>
+      <div class="about-stats reveal">
+        <div class="stat-item">
+          <div class="stat-number">Discord</div>
+          <div class="stat-label">Primary Platform &amp; Specialisation</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-number">EXECUTIVE</div>
+          <div class="stat-label">at POLAR SMP</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-number">Freelance</div>
+          <div class="stat-label">Self-Employed &amp; Independent</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-number">Staff</div>
+          <div class="stat-label">Server Staff &amp; Moderation</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PROJECTS -->
+<section id="projects">
+  <div class="wrap">
+    <p class="section-label reveal">Past Work &amp; Projects</p>
+    <h2 class="section-title reveal">Where I've <em>made an impact</em></h2>
+    <div class="projects-grid reveal">
+
+      <div class="project-card">
+        <span class="project-tag">Executive Role</span>
+        <h3 class="project-title">POLAR SMP</h3>
+        <p class="project-desc">
+          Serving as an Executive at POLAR SMP, contributing to high-level decisions around community direction, server strategy, and overall growth. Helping to shape what the server stands for and where it goes next.
+        </p>
+        <div class="project-tags">
+          <span class="pill">Leadership</span>
+          <span class="pill">Strategy</span>
+          <span class="pill">Community</span>
+          <span class="pill">Discord</span>
+        </div>
+      </div>
+
+      <div class="project-card">
+        <span class="project-tag">Marketing Manager</span>
+        <h3 class="project-title">Infinity Astro &amp; Infinity Astro Services</h3>
+        <p class="project-desc">
+          Acting as Marketing Manager for both Infinity Astro and Infinity Astro Services — overseeing growth strategy, community engagement, and brand presence across Discord and beyond.
+        </p>
+        <div class="project-tags">
+          <span class="pill">Marketing</span>
+          <span class="pill">Management</span>
+          <span class="pill">Growth</span>
+          <span class="pill">Discord</span>
+        </div>
+      </div>
+
+      <div class="project-card">
+        <span class="project-tag">Community Building</span>
+        <h3 class="project-title">Server Structuring &amp; Setup</h3>
+        <p class="project-desc">
+          Building Discord servers from the ground up — designing channel structures, permission systems, onboarding flows, and bot integrations that make communities feel professional and welcoming from day one.
+        </p>
+        <div class="project-tags">
+          <span class="pill">Setup</span>
+          <span class="pill">Bots</span>
+          <span class="pill">UX</span>
+          <span class="pill">Onboarding</span>
+        </div>
+      </div>
+
+      <div class="project-card">
+        <span class="project-tag">Brand &amp; Identity</span>
+        <h3 class="project-title">Online Brand Management</h3>
+        <p class="project-desc">
+          Supporting clients with their online presence beyond Discord — including brand voice, cross-platform consistency, and ensuring their community identity is coherent, recognisable, and memorable.
+        </p>
+        <div class="project-tags">
+          <span class="pill">Branding</span>
+          <span class="pill">Freelance</span>
+          <span class="pill">Marketing</span>
+          <span class="pill">Identity</span>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- LINKS -->
+    <div class="reveal" style="margin-top: 4rem;">
+      <p class="section-label" style="margin-bottom: 1.5rem;">Live Links</p>
+      <div class="links-list">
+
+        <a href="https://www.polarsmp.online/" target="_blank" rel="noopener" class="link-row">
+          <div class="link-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+          </div>
+          <div class="link-text">
+            <div class="link-title">POLAR SMP — Official Website</div>
+            <div class="link-url">polarsmp.online</div>
+          </div>
+          <span class="link-arrow">↗</span>
+        </a>
+
+        <a href="https://discord.gg/TU6kRNQCmx" target="_blank" rel="noopener" class="link-row">
+          <div class="link-icon">
+            <svg viewBox="0 0 24 24" fill="#7ab87a" aria-hidden="true"><path d="M20.317 4.37a19.791 19.791 0 0 0-4.885-1.515.074.074 0 0 0-.079.037c-.21.375-.444.864-.608 1.25a18.27 18.27 0 0 0-5.487 0 12.64 12.64 0 0 0-.617-1.25.077.077 0 0 0-.079-.037A19.736 19.736 0 0 0 3.677 4.37a.07.07 0 0 0-.032.027C.533 9.046-.32 13.58.099 18.057a.082.082 0 0 0 .031.057 19.9 19.9 0 0 0 5.993 3.03.078.078 0 0 0 .084-.028 14.09 14.09 0 0 0 1.226-1.994.076.076 0 0 0-.041-.106 13.107 13.107 0 0 1-1.872-.892.077.077 0 0 1-.008-.128 10.2 10.2 0 0 0 .372-.292.074.074 0 0 1 .077-.01c3.928 1.793 8.18 1.793 12.062 0a.074.074 0 0 1 .078.01c.12.098.246.198.373.292a.077.077 0 0 1-.006.127 12.299 12.299 0 0 1-1.873.892.077.077 0 0 0-.041.107c.36.698.772 1.362 1.225 1.993a.076.076 0 0 0 .084.028 19.839 19.839 0 0 0 6.002-3.03.077.077 0 0 0 .032-.054c.5-5.177-.838-9.674-3.549-13.66a.061.061 0 0 0-.031-.03z"/></svg>
+          </div>
+          <div class="link-text">
+            <div class="link-title">POLAR SMP — Discord Server</div>
+            <div class="link-url">discord.gg/TU6kRNQCmx</div>
+          </div>
+          <span class="link-arrow">↗</span>
+        </a>
+
+        <a href="https://discord.gg/37cz29Xkmd" target="_blank" rel="noopener" class="link-row">
+          <div class="link-icon">
+            <svg viewBox="0 0 24 24" fill="#7ab87a" aria-hidden="true"><path d="M20.317 4.37a19.791 19.791 0 0 0-4.885-1.515.074.074 0 0 0-.079.037c-.21.375-.444.864-.608 1.25a18.27 18.27 0 0 0-5.487 0 12.64 12.64 0 0 0-.617-1.25.077.077 0 0 0-.079-.037A19.736 19.736 0 0 0 3.677 4.37a.07.07 0 0 0-.032.027C.533 9.046-.32 13.58.099 18.057a.082.082 0 0 0 .031.057 19.9 19.9 0 0 0 5.993 3.03.078.078 0 0 0 .084-.028 14.09 14.09 0 0 0 1.226-1.994.076.076 0 0 0-.041-.106 13.107 13.107 0 0 1-1.872-.892.077.077 0 0 1-.008-.128 10.2 10.2 0 0 0 .372-.292.074.074 0 0 1 .077-.01c3.928 1.793 8.18 1.793 12.062 0a.074.074 0 0 1 .078.01c.12.098.246.198.373.292a.077.077 0 0 1-.006.127 12.299 12.299 0 0 1-1.873.892.077.077 0 0 0-.041.107c.36.698.772 1.362 1.225 1.993a.076.076 0 0 0 .084.028 19.839 19.839 0 0 0 6.002-3.03.077.077 0 0 0 .032-.054c.5-5.177-.838-9.674-3.549-13.66a.061.061 0 0 0-.031-.03z"/></svg>
+          </div>
+          <div class="link-text">
+            <div class="link-title">Infinity Astro — Discord Server</div>
+            <div class="link-url">discord.gg/37cz29Xkmd</div>
+          </div>
+          <span class="link-arrow">↗</span>
+        </a>
+
+        <a href="https://discord.gg/cFE6uztj6M" target="_blank" rel="noopener" class="link-row">
+          <div class="link-icon">
+            <svg viewBox="0 0 24 24" fill="#7ab87a" aria-hidden="true"><path d="M20.317 4.37a19.791 19.791 0 0 0-4.885-1.515.074.074 0 0 0-.079.037c-.21.375-.444.864-.608 1.25a18.27 18.27 0 0 0-5.487 0 12.64 12.64 0 0 0-.617-1.25.077.077 0 0 0-.079-.037A19.736 19.736 0 0 0 3.677 4.37a.07.07 0 0 0-.032.027C.533 9.046-.32 13.58.099 18.057a.082.082 0 0 0 .031.057 19.9 19.9 0 0 0 5.993 3.03.078.078 0 0 0 .084-.028 14.09 14.09 0 0 0 1.226-1.994.076.076 0 0 0-.041-.106 13.107 13.107 0 0 1-1.872-.892.077.077 0 0 1-.008-.128 10.2 10.2 0 0 0 .372-.292.074.074 0 0 1 .077-.01c3.928 1.793 8.18 1.793 12.062 0a.074.074 0 0 1 .078.01c.12.098.246.198.373.292a.077.077 0 0 1-.006.127 12.299 12.299 0 0 1-1.873.892.077.077 0 0 0-.041.107c.36.698.772 1.362 1.225 1.993a.076.076 0 0 0 .084.028 19.839 19.839 0 0 0 6.002-3.03.077.077 0 0 0 .032-.054c.5-5.177-.838-9.674-3.549-13.66a.061.061 0 0 0-.031-.03z"/></svg>
+          </div>
+          <div class="link-text">
+            <div class="link-title">Infinity Astro Services — Discord</div>
+            <div class="link-url">discord.gg/cFE6uztj6M</div>
+          </div>
+          <span class="link-arrow">↗</span>
+        </a>
+
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="wrap">
+    <div class="contact-inner">
+      <p class="section-label reveal">Contact Me</p>
+      <h2 class="section-title reveal">Let's <em>work together</em></h2>
+      <p class="contact-sub reveal">
+        Got a Discord server that needs growing? Looking for a marketing manager who actually understands online communities? Reach out — I'd love to hear about your project.
+      </p>
+
+      <div class="contact-options reveal">
+        <a class="contact-row" href="https://discord.com/users/buugsss_" target="_blank" rel="noopener">
+          <div class="contact-icon">
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+              <path d="M20.317 4.37a19.791 19.791 0 0 0-4.885-1.515.074.074 0 0 0-.079.037c-.21.375-.444.864-.608 1.25a18.27 18.27 0 0 0-5.487 0 12.64 12.64 0 0 0-.617-1.25.077.077 0 0 0-.079-.037A19.736 19.736 0 0 0 3.677 4.37a.07.07 0 0 0-.032.027C.533 9.046-.32 13.58.099 18.057a.082.082 0 0 0 .031.057 19.9 19.9 0 0 0 5.993 3.03.078.078 0 0 0 .084-.028 14.09 14.09 0 0 0 1.226-1.994.076.076 0 0 0-.041-.106 13.107 13.107 0 0 1-1.872-.892.077.077 0 0 1-.008-.128 10.2 10.2 0 0 0 .372-.292.074.074 0 0 1 .077-.01c3.928 1.793 8.18 1.793 12.062 0a.074.074 0 0 1 .078.01c.12.098.246.198.373.292a.077.077 0 0 1-.006.127 12.299 12.299 0 0 1-1.873.892.077.077 0 0 0-.041.107c.36.698.772 1.362 1.225 1.993a.076.076 0 0 0 .084.028 19.839 19.839 0 0 0 6.002-3.03.077.077 0 0 0 .032-.054c.5-5.177-.838-9.674-3.549-13.66a.061.061 0 0 0-.031-.03z" stroke="none" fill="#7ab87a"/>
+            </svg>
+          </div>
+          <div>
+            <div class="contact-platform">Discord</div>
+            <div class="contact-handle">buugsss_</div>
+          </div>
+          <span class="contact-arrow">→</span>
+        </a>
+        <a class="contact-row" href="mailto:JagoCarson@outlook.com">
+          <div class="contact-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="#7ab87a" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/>
+            </svg>
+          </div>
+          <div>
+            <div class="contact-platform">Email</div>
+            <div class="contact-handle">JagoCarson@outlook.com</div>
+          </div>
+          <span class="contact-arrow">→</span>
+        </a>
+      </div>
+
+      <p class="reveal" style="font-size:0.8rem; color: var(--text-muted); letter-spacing: 0.05em;">
+        Discord is the fastest way to reach me — I'm usually online.
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <span class="footer-name">Jago Carson · BUUGSSS</span>
+  <span class="footer-copy">© 2025 · Marketing Manager &amp; Community Executive</span>
+</footer>
+
+<script>
+  const reveals = document.querySelectorAll('.reveal');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry, i) => {
+      if (entry.isIntersecting) {
+        setTimeout(() => entry.target.classList.add('visible'), i * 80);
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.12 });
+  reveals.forEach(el => observer.observe(el));
+
+  document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+    anchor.addEventListener('click', function(e) {
+      const href = this.getAttribute('href');
+      if (href === '#') return;
+      const target = document.querySelector(href);
+      if (target) {
+        e.preventDefault();
+        target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+    });
+  });
+</script>
+</body>
+</html>
