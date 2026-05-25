@@ -503,7 +503,216 @@
   .link-url { font-size: 0.75rem; color: var(--text-muted); letter-spacing: 0.05em; margin-top: 0.1rem; }
   .link-arrow { color: var(--forest-fern); font-size: 1rem; }
 
-  /* ── RESPONSIVE ── */
+  /* ── HOBBIES ── */
+  .hobbies-block {
+    margin-top: 2.5rem;
+    padding-top: 2rem;
+    border-top: 1px solid var(--forest-bark);
+  }
+  .hobbies-label {
+    font-size: 0.7rem;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--amber-glow);
+    margin-bottom: 1.2rem !important;
+  }
+  .hobbies-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0.8rem;
+  }
+  .hobby-item {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    font-size: 0.95rem;
+    color: var(--text-secondary);
+    padding: 0.8rem 1.2rem;
+    border: 1px solid var(--forest-bark);
+    background: rgba(20,38,20,0.3);
+    transition: background 0.3s, border-color 0.3s;
+  }
+  .hobby-item:hover {
+    background: rgba(30,54,30,0.5);
+    border-color: var(--forest-fern);
+    color: var(--forest-mist);
+  }
+  .hobby-icon { font-size: 1.2rem; }
+
+  /* ── RESUME ── */
+  #resume { border-top: 1px solid var(--forest-bark); }
+
+  .resume-profile {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 3rem;
+    align-items: start;
+    margin-bottom: 3.5rem;
+    padding-bottom: 3rem;
+    border-bottom: 1px solid var(--forest-bark);
+  }
+  .resume-profile-text p {
+    color: var(--text-secondary);
+    font-size: 1rem;
+    line-height: 1.9;
+  }
+  .resume-contact-chips {
+    display: flex;
+    flex-direction: column;
+    gap: 0.7rem;
+    flex-shrink: 0;
+  }
+  .resume-chip {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    font-size: 0.78rem;
+    letter-spacing: 0.05em;
+    color: var(--text-secondary);
+    text-decoration: none;
+    padding: 0.6rem 1rem;
+    border: 1px solid var(--forest-bark);
+    background: rgba(20,38,20,0.3);
+    transition: all 0.3s;
+    white-space: nowrap;
+  }
+  .resume-chip:hover { border-color: var(--forest-fern); color: var(--forest-mist); background: rgba(30,54,30,0.5); }
+  .resume-chip svg { width: 13px; height: 13px; flex-shrink: 0; color: var(--forest-sage); }
+
+  .resume-block { margin-bottom: 3.5rem; }
+  .resume-block-label {
+    font-size: 0.65rem;
+    letter-spacing: 0.35em;
+    text-transform: uppercase;
+    color: var(--amber-glow);
+    margin-bottom: 1.5rem;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+  }
+  .resume-block-label::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: var(--forest-bark);
+  }
+
+  /* achievements */
+  .resume-achievements { display: flex; flex-direction: column; gap: 0.6rem; }
+  .achievement-item {
+    display: flex;
+    align-items: baseline;
+    gap: 1rem;
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+    padding: 0.7rem 1.2rem;
+    background: rgba(20,38,20,0.3);
+    border: 1px solid var(--forest-bark);
+    transition: background 0.3s, border-color 0.3s;
+  }
+  .achievement-item:hover { background: rgba(30,54,30,0.5); border-color: var(--forest-fern); color: var(--forest-mist); }
+  .achievement-bullet { color: var(--amber-glow); font-size: 0.5rem; flex-shrink: 0; }
+
+  /* timeline */
+  .resume-timeline { display: flex; flex-direction: column; gap: 1.5px; background: var(--forest-bark); }
+  .timeline-entry {
+    background: var(--forest-deep);
+    padding: 2rem 2.5rem;
+    position: relative;
+    transition: background 0.3s;
+    border-left: 3px solid transparent;
+  }
+  .timeline-entry:hover { background: var(--forest-mid); border-left-color: var(--forest-fern); }
+  .timeline-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 1.2rem;
+    gap: 1rem;
+  }
+  .timeline-role {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.4rem;
+    font-weight: 400;
+    color: var(--forest-dew);
+    line-height: 1.1;
+    margin-bottom: 0.25rem;
+  }
+  .timeline-org {
+    font-size: 0.78rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+  }
+  .timeline-badge {
+    font-size: 0.6rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    padding: 0.25rem 0.7rem;
+    border: 1px solid;
+    flex-shrink: 0;
+    margin-top: 0.2rem;
+  }
+  .timeline-badge.active  { color: var(--forest-sage);  border-color: var(--forest-fern);  background: rgba(61,107,61,0.2); }
+  .timeline-badge.retired { color: var(--text-muted);   border-color: var(--forest-bark);  background: transparent; }
+  .timeline-badge.dev     { color: var(--amber-soft);   border-color: rgba(200,168,75,0.4); background: rgba(200,168,75,0.1); }
+  .timeline-badge.freelance { color: var(--forest-mist); border-color: rgba(168,207,168,0.3); background: rgba(168,207,168,0.08); }
+  .timeline-badge.irl     { color: var(--text-secondary); border-color: var(--forest-bark); background: transparent; }
+  .timeline-bullets { list-style: none; display: flex; flex-direction: column; gap: 0.5rem; }
+  .timeline-bullets li {
+    font-size: 0.88rem;
+    color: var(--text-secondary);
+    padding-left: 1.2rem;
+    position: relative;
+    line-height: 1.7;
+  }
+  .timeline-bullets li::before {
+    content: '—';
+    position: absolute;
+    left: 0;
+    color: var(--forest-fern);
+    font-size: 0.75rem;
+  }
+
+  /* lower grid */
+  .resume-lower {
+    display: grid;
+    grid-template-columns: 1.5fr 1fr 1fr;
+    gap: 1.5px;
+    background: var(--forest-bark);
+    margin-top: 1.5px;
+  }
+  .resume-lower-card {
+    background: var(--forest-deep);
+    padding: 2rem;
+    transition: background 0.3s;
+  }
+  .resume-lower-card:hover { background: var(--forest-mid); }
+
+  .skills-grid { display: flex; flex-wrap: wrap; gap: 0.5rem; }
+  .skill-tag {
+    font-size: 0.7rem;
+    letter-spacing: 0.08em;
+    color: var(--text-secondary);
+    background: var(--forest-bark);
+    padding: 0.3rem 0.8rem;
+    border: 1px solid transparent;
+    transition: all 0.25s;
+  }
+  .skill-tag:hover { border-color: var(--forest-fern); color: var(--forest-mist); background: var(--forest-mid); }
+
+  .edu-item { margin-top: 0.5rem; }
+  .edu-title { font-size: 0.92rem; color: var(--forest-mist); line-height: 1.5; margin-bottom: 0.4rem; }
+  .edu-sub { font-size: 0.72rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--text-muted); }
+
+  .cert-list { list-style: none; display: flex; flex-direction: column; gap: 0.75rem; }
+  .cert-list li { font-size: 0.82rem; color: var(--text-secondary); line-height: 1.5; }
+
+  @media (max-width: 900px) {
+    .resume-profile { grid-template-columns: 1fr; gap: 1.5rem; }
+    .resume-contact-chips { flex-direction: row; flex-wrap: wrap; }
+    .resume-lower { grid-template-columns: 1fr; }
+  }
   @media (max-width: 680px) {
     .about-grid { grid-template-columns: 1fr; gap: 3rem; }
     .projects-grid { grid-template-columns: 1fr; }
@@ -539,10 +748,11 @@
 
 <!-- NAV -->
 <nav>
-  <a href="#hero" class="nav-logo">Jago Carson</a>
+  <a href="#hero" class="nav-logo">BUUGSSS</a>
   <ul class="nav-links">
     <li><a href="#about">About</a></li>
     <li><a href="#projects">Work</a></li>
+    <li><a href="#resume">Resume</a></li>
     <li><a href="#contact">Contact</a></li>
   </ul>
 </nav>
@@ -552,8 +762,7 @@
   <div class="hero-inner">
     <p class="hero-eyebrow">Online Marketing Manager &amp; Community Executive</p>
     <h1 class="hero-name">
-      Jago Carson
-      <em>BUUGSSS</em>
+      BUUGSSS
     </h1>
     <div class="hero-divider"></div>
     <p class="hero-tagline">
@@ -575,10 +784,10 @@
   <div class="wrap">
     <p class="section-label reveal">About Me</p>
     <h2 class="section-title reveal">Growing communities <em>from the roots up</em></h2>
-    <div class="about-grid">
+    <div class="about-grid" style="grid-template-columns: 1fr;">
       <div class="about-text reveal">
         <p>
-          I'm <strong>Jago Carson</strong> — a self-employed online marketing manager and community executive who lives and breathes online communities. Most people know me by my online name, <strong>BUUGSSS</strong>.
+          I'm <strong>BUUGSSS</strong> — a self-employed online marketing manager and community executive who lives and breathes online communities.
         </p>
         <p>
           I serve as <strong>Marketing Manager for Infinity Astro</strong> and <strong>Infinity Astro Services</strong>, driving growth and engagement across both brands. I'm also an <strong>Executive at POLAR SMP</strong>, where I contribute to high-level strategy and community direction.
@@ -589,23 +798,23 @@
         <p>
           Whether you need a marketing manager, an executive-level strategist, or someone to grow your server from the ground up — I know what it takes.
         </p>
-      </div>
-      <div class="about-stats reveal">
-        <div class="stat-item">
-          <div class="stat-number">Discord</div>
-          <div class="stat-label">Primary Platform &amp; Specialisation</div>
-        </div>
-        <div class="stat-item">
-          <div class="stat-number">EXECUTIVE</div>
-          <div class="stat-label">at POLAR SMP</div>
-        </div>
-        <div class="stat-item">
-          <div class="stat-number">Freelance</div>
-          <div class="stat-label">Self-Employed &amp; Independent</div>
-        </div>
-        <div class="stat-item">
-          <div class="stat-number">Staff</div>
-          <div class="stat-label">Server Staff &amp; Moderation</div>
+
+        <div class="hobbies-block">
+          <p class="hobbies-label">Outside of work</p>
+          <div class="hobbies-list">
+            <div class="hobby-item">
+              <span class="hobby-icon">🏐</span>
+              <span>Volleyball</span>
+            </div>
+            <div class="hobby-item">
+              <span class="hobby-icon">⚽</span>
+              <span>Football / Soccer</span>
+            </div>
+            <div class="hobby-item">
+              <span class="hobby-icon">🎮</span>
+              <span>Gaming</span>
+            </div>
+          </div>
         </div>
       </div>
     </div>
@@ -794,6 +1003,216 @@
   </div>
 </section>
 
+<!-- RESUME -->
+<section id="resume">
+  <div class="wrap">
+    <p class="section-label reveal">Resume</p>
+    <h2 class="section-title reveal">Experience &amp; <em>background</em></h2>
+
+    <!-- PROFILE + QUICK STATS -->
+    <div class="resume-profile reveal">
+      <div class="resume-profile-text">
+        <p>Organised and motivated with experience in online community management, moderation, marketing, and operations. Experienced managing staff teams, supporting online communities, and contributing to multiplayer gaming projects. Strong communication, teamwork, and organisational skills developed through both online leadership and real-world work experience.</p>
+      </div>
+      <div class="resume-contact-chips">
+        <a href="mailto:nightis1345@gmail.com" class="resume-chip">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
+          nightis1345@gmail.com
+        </a>
+        <a href="https://discord.com/users/buugsss_" target="_blank" rel="noopener" class="resume-chip">
+          <svg viewBox="0 0 24 24" fill="currentColor" stroke="none"><path d="M20.317 4.37a19.791 19.791 0 0 0-4.885-1.515.074.074 0 0 0-.079.037c-.21.375-.444.864-.608 1.25a18.27 18.27 0 0 0-5.487 0 12.64 12.64 0 0 0-.617-1.25.077.077 0 0 0-.079-.037A19.736 19.736 0 0 0 3.677 4.37a.07.07 0 0 0-.032.027C.533 9.046-.32 13.58.099 18.057a.082.082 0 0 0 .031.057 19.9 19.9 0 0 0 5.993 3.03.078.078 0 0 0 .084-.028 14.09 14.09 0 0 0 1.226-1.994.076.076 0 0 0-.041-.106 13.107 13.107 0 0 1-1.872-.892.077.077 0 0 1-.008-.128 10.2 10.2 0 0 0 .372-.292.074.074 0 0 1 .077-.01c3.928 1.793 8.18 1.793 12.062 0a.074.074 0 0 1 .078.01c.12.098.246.198.373.292a.077.077 0 0 1-.006.127 12.299 12.299 0 0 1-1.873.892.077.077 0 0 0-.041.107c.36.698.772 1.362 1.225 1.993a.076.076 0 0 0 .084.028 19.839 19.839 0 0 0 6.002-3.03.077.077 0 0 0 .032-.054c.5-5.177-.838-9.674-3.549-13.66a.061.061 0 0 0-.031-.03z"/></svg>
+          buugsss_
+        </a>
+      </div>
+    </div>
+
+    <!-- KEY ACHIEVEMENTS -->
+    <div class="resume-block reveal">
+      <p class="resume-block-label">Key Achievements</p>
+      <div class="resume-achievements">
+        <div class="achievement-item">
+          <span class="achievement-bullet">◆</span>
+          <span>Executive of Polar Empire SMP — 230+ member community</span>
+        </div>
+        <div class="achievement-item">
+          <span class="achievement-bullet">◆</span>
+          <span>Managed a staff team of approximately 20 members</span>
+        </div>
+        <div class="achievement-item">
+          <span class="achievement-bullet">◆</span>
+          <span>Helped InfinityAstro Services gain 40+ new players through marketing &amp; promotion</span>
+        </div>
+        <div class="achievement-item">
+          <span class="achievement-bullet">◆</span>
+          <span>Freelance music producer within Celestial Services — a 1,000+ member community</span>
+        </div>
+        <div class="achievement-item">
+          <span class="achievement-bullet">◆</span>
+          <span>Produced custom music &amp; audio for YouTubers and online creators</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- EXPERIENCE -->
+    <div class="resume-block reveal">
+      <p class="resume-block-label">Experience</p>
+      <div class="resume-timeline">
+
+        <div class="timeline-entry">
+          <div class="timeline-header">
+            <div>
+              <div class="timeline-role">Executive</div>
+              <div class="timeline-org">Polar Empire SMP</div>
+            </div>
+            <span class="timeline-badge retired">Retired</span>
+          </div>
+          <ul class="timeline-bullets">
+            <li>Executive member of a 230+ member online community</li>
+            <li>Assisted with community management, operations, planning, and staff coordination</li>
+            <li>Helped maintain organisation and improve player/community engagement</li>
+            <li>Supported moderation and staff management across the community</li>
+          </ul>
+        </div>
+
+        <div class="timeline-entry">
+          <div class="timeline-header">
+            <div>
+              <div class="timeline-role">Marketing Manager</div>
+              <div class="timeline-org">InfinityAstro Services</div>
+            </div>
+            <span class="timeline-badge active">Active</span>
+          </div>
+          <ul class="timeline-bullets">
+            <li>Managed marketing and advertising for online gaming &amp; community services</li>
+            <li>Brought in 40+ new players through promotion and outreach</li>
+            <li>Monitored engagement, growth statistics, and community activity</li>
+            <li>Assisted with branding and online visibility</li>
+          </ul>
+        </div>
+
+        <div class="timeline-entry">
+          <div class="timeline-header">
+            <div>
+              <div class="timeline-role">Manager</div>
+              <div class="timeline-org">Velora RPG</div>
+            </div>
+            <span class="timeline-badge dev">In Development</span>
+          </div>
+          <ul class="timeline-bullets">
+            <li>Managing organisation and development planning for an upcoming RPG project</li>
+            <li>Coordinating communication, ideas, and project structure</li>
+            <li>Producing music/audio content for the project</li>
+            <li>Assisting with team organisation and development operations</li>
+          </ul>
+        </div>
+
+        <div class="timeline-entry">
+          <div class="timeline-header">
+            <div>
+              <div class="timeline-role">Staff Member</div>
+              <div class="timeline-org">FlameFrags Network</div>
+            </div>
+            <span class="timeline-badge retired">Retired</span>
+          </div>
+          <ul class="timeline-bullets">
+            <li>Moderated community interactions and enforced server rules</li>
+            <li>Assisted players with support requests and issue resolution</li>
+            <li>Worked within a larger online moderation/staff environment</li>
+          </ul>
+        </div>
+
+        <div class="timeline-entry">
+          <div class="timeline-header">
+            <div>
+              <div class="timeline-role">Freelance Music Producer</div>
+              <div class="timeline-org">Celestial Services</div>
+            </div>
+            <span class="timeline-badge freelance">Freelance</span>
+          </div>
+          <ul class="timeline-bullets">
+            <li>Produced music/audio for YouTubers through Celestial Services (1,000+ member community)</li>
+            <li>Worked with creators to produce custom audio suited to their content and branding</li>
+            <li>Managed deadlines and client requests independently</li>
+          </ul>
+        </div>
+
+        <div class="timeline-entry">
+          <div class="timeline-header">
+            <div>
+              <div class="timeline-role">Work Experience</div>
+              <div class="timeline-org">Sam's Café</div>
+            </div>
+            <span class="timeline-badge irl">Real World</span>
+          </div>
+          <ul class="timeline-bullets">
+            <li>Assisted in both kitchen and front-of-house duties during Year 10 work experience</li>
+            <li>Worked in a fast-paced customer service environment</li>
+            <li>Developed teamwork, communication, and reliability</li>
+          </ul>
+        </div>
+
+        <div class="timeline-entry">
+          <div class="timeline-header">
+            <div>
+              <div class="timeline-role">Volunteer Assistant</div>
+              <div class="timeline-org">Year 8 After-School Football Club</div>
+            </div>
+            <span class="timeline-badge irl">Volunteer</span>
+          </div>
+          <ul class="timeline-bullets">
+            <li>Helped supervise and support younger students during football sessions</li>
+            <li>Assisted with teamwork and activity organisation</li>
+          </ul>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- SKILLS + EDUCATION + CERTS — 3 col grid -->
+    <div class="resume-lower reveal">
+
+      <div class="resume-lower-card">
+        <p class="resume-block-label">Skills</p>
+        <div class="skills-grid">
+          <span class="skill-tag">Staff Management</span>
+          <span class="skill-tag">Community Moderation</span>
+          <span class="skill-tag">Marketing &amp; Advertising</span>
+          <span class="skill-tag">Team Leadership</span>
+          <span class="skill-tag">Online Operations</span>
+          <span class="skill-tag">Analytics &amp; Statistics</span>
+          <span class="skill-tag">Communication</span>
+          <span class="skill-tag">Music Production</span>
+          <span class="skill-tag">Customer Support</span>
+          <span class="skill-tag">Organisation</span>
+          <span class="skill-tag">Research &amp; Admin</span>
+          <span class="skill-tag">Time Management</span>
+        </div>
+      </div>
+
+      <div class="resume-lower-card">
+        <p class="resume-block-label">Education</p>
+        <div class="edu-item">
+          <div class="edu-title">Esports — Online Marketing &amp; Media Management</div>
+          <div class="edu-sub">Starting September 2026</div>
+        </div>
+      </div>
+
+      <div class="resume-lower-card">
+        <p class="resume-block-label">Certifications &amp; Achievements</p>
+        <ul class="cert-list">
+          <li>🥉 Bronze Duke of Edinburgh Award (DofE)</li>
+          <li>🏆 1st Place — Junior Golf Championship</li>
+          <li>🥈 2x 2nd Place — Junior Golf Championships</li>
+          <li>🥈 2nd Place — Wessex Junior Masters</li>
+          <li>⚽ Player-Nominated Football Player</li>
+        </ul>
+      </div>
+
+    </div>
+
+  </div>
+</section>
+
 <!-- CONTACT -->
 <section id="contact">
   <div class="wrap">
@@ -840,7 +1259,7 @@
 
 <!-- FOOTER -->
 <footer>
-  <span class="footer-name">Jago Carson · BUUGSSS</span>
+  <span class="footer-name">BUUGSSS</span>
   <span class="footer-copy">© 2025 · Marketing Manager &amp; Community Executive</span>
 </footer>
 
